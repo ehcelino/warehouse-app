@@ -14,6 +14,13 @@
       <h1>Galpões & Estoque</h1>
     </header>
     <main>
+      <% if flash.any? %>
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>">
+            <%= value %>
+          </div>
+        <% end %>
+      <% end %>
       <%= yield %>
     </main>
   </body>

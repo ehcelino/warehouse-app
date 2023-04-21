@@ -43,4 +43,22 @@ describe 'Usuário cadastra um galpão' do
 
   end
 
+  it 'com dados incompletos' do
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Cadastrar Galpão'
+    fill_in 'Nome', with: ''
+    fill_in 'Descrição', with: ''
+    fill_in 'Código', with: ''
+    fill_in 'Endereço', with: ''
+    fill_in 'Cidade', with: ''
+    fill_in 'CEP', with: ''
+    fill_in 'Área', with: ''
+    click_on 'Enviar'
+
+    # Assert
+    expect(page).to have_content("Galpão não cadastrado.")
+  end
 end

@@ -1,6 +1,15 @@
 <h1>Novo Galpão</h1>
 
-<%= form_with model: Warehouse.new do |f| %>
+<%= form_with model: @warehouse do |f| %>
+
+  <% if @warehouse.errors.any? %>
+    <p>Verifique os erros abaixo:</p>
+    <ul>
+      <% @warehouse.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <div>
     <%= f.label :name, "Nome" %>

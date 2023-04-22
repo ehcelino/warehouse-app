@@ -5,7 +5,7 @@ describe 'Usuário visita tela inicial' do
     # Arrange
 
     # Act
-    visit('/')
+    visit root_path
 
     # Assert
     expect(page).to have_content('Galpões & Estoque')
@@ -19,7 +19,7 @@ describe 'Usuário visita tela inicial' do
                     address: 'Av Atlântica, 50', cep: '80000-000', description: 'Perto do Aeroporto')
 
     # Act
-    visit('/')
+    visit root_path
 
     # Assert
     expect(page).not_to have_content('Não existem galpões cadastrados.')
@@ -37,7 +37,7 @@ describe 'Usuário visita tela inicial' do
     # Arrange
 
     # Act
-    visit('/')
+    visit root_path
 
     # Assert
     expect(page).to have_content('Não existem galpões cadastrados.')

@@ -4,7 +4,7 @@
     <%= link_to 'Cadastrar Galpão', new_warehouse_path %>
   </div>
   <% @warehouses.each do |w| %>
-    <%= link_to w.name, warehouse_path(w) %>
+    <%= link_to w.name, w %>
     <dl>
       <dt>Código: </dt>
       <dd><%= w.code %></dd>

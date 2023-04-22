@@ -40,7 +40,7 @@ pidfile ENV.fetch("PIDFILE") { "tmp/pids/server.pid" }
 # preload_app!
 
 # PRA FUNCIONAR NA REDE INTERNA
-bind "tcp://192.168.0.113:3000" if ENV.fetch("RUNNING_ENV") == "home"
+bind "tcp://192.168.0.114:3000" if ENV.fetch("RUNNING_ENV") == "home"
 
 # Allow puma to be restarted by `bin/rails restart` command.
 plugin :tmp_restart

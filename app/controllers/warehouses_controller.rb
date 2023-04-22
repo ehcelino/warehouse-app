@@ -17,6 +17,20 @@ class WarehousesController < ApplicationController
     end
   end
 
+  def edit
+    @warehouse = Warehouse.find(params[:id])
+  end
+
+  def update
+    @warehouse = Warehouse.find(params[:id])
+    if @warehouse.update(warehouse_params)
+      redirect_to warehouse_path(@warehouse), notice: "Galpão atualizado com sucesso."
+    else
+      flash.now[:notice] = "Galpão não atualizado."
+      render :edit
+    end
+  end
+
   private
 
   def warehouse_params

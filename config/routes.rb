@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :warehouses, only: [:show, :new, :create, :edit, :update]
+  resources :warehouses, only: [:show, :new, :create, :edit, :update, :destroy]
 end

@@ -3,11 +3,13 @@ require 'rails_helper'
 describe 'Usuário cadastra um modelo de produto' do
   it 'com sucesso' do
     # Arrange
+    user = User.create!(name:'João', email: 'joao@email.com', password: 'password')
     supplier = Supplier.create!(corporate_name: 'Samsung Eletrônicos LTDA', brand_name: 'Samsung', registration_number: '1234567890123',
                                 full_address: 'Av Nações Unidas, 1000', city: 'São Paulo', state: 'SP', email: 'sac@samsung.com.br')
     other_supplier = Supplier.create!(corporate_name: 'LG Eletrônicos LTDA', brand_name: 'LG', registration_number: '1234567890123',
       full_address: 'Av Ibirapuera, 1000', city: 'São Paulo', state: 'SP', email: 'sac@lg.com.br')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Modelos de Produtos'
     click_on 'Cadastrar Novo'
@@ -31,11 +33,13 @@ describe 'Usuário cadastra um modelo de produto' do
 
   it 'deve preencher todos os campos' do
     # Arrange
+    user = User.create!(name:'João', email: 'joao@email.com', password: 'password')
     supplier = Supplier.create!(corporate_name: 'Samsung Eletrônicos LTDA', brand_name: 'Samsung', registration_number: '1234567890123',
       full_address: 'Av Nações Unidas, 1000', city: 'São Paulo', state: 'SP', email: 'sac@samsung.com.br')
     other_supplier = Supplier.create!(corporate_name: 'LG Eletrônicos LTDA', brand_name: 'LG', registration_number: '1234567890123',
       full_address: 'Av Ibirapuera, 1000', city: 'São Paulo', state: 'SP', email: 'sac@lg.com.br')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Modelos de Produtos'
     click_on 'Cadastrar Novo'

@@ -1,0 +1,7 @@
+.btnlink {
+  border: 0;
+  background-color: transparent;
+  color: blue;
+  text-decoration:underline;
+  cursor:pointer;
+}

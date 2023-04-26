@@ -55,6 +55,7 @@ describe 'Usuário cadastra um galpão' do
     fill_in 'Código', with: ''
     fill_in 'Endereço', with: ''
     fill_in 'Cidade', with: ''
+    fill_in 'Estado', with: ''
     fill_in 'CEP', with: ''
     fill_in 'Área', with: ''
     click_on 'Enviar'
@@ -66,6 +67,7 @@ describe 'Usuário cadastra um galpão' do
     expect(page).to have_content("Código não pode ficar em branco")
     expect(page).to have_content("Endereço não pode ficar em branco")
     expect(page).to have_content("Cidade não pode ficar em branco")
+    expect(page).to have_content("Estado não pode ficar em branco")
     expect(page).to have_content("CEP não pode ficar em branco")
     expect(page).to have_content("Área não pode ficar em branco")
   end

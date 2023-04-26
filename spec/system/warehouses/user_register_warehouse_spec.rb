@@ -70,5 +70,52 @@ describe 'Usuário cadastra um galpão' do
     expect(page).to have_content("Estado não pode ficar em branco")
     expect(page).to have_content("CEP não pode ficar em branco")
     expect(page).to have_content("Área não pode ficar em branco")
+    expect(page).to have_content("CEP deve ser no formato xxxxx-xxx")
   end
+
+  it 'com CEP errado' do
+
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Cadastrar Galpão'
+    fill_in 'Nome', with: 'Rio de Janeiro'
+    fill_in 'Descrição', with: 'Galpão da zona portuária do Rio'
+    fill_in 'Código', with: 'RIO'
+    fill_in 'Endereço', with: 'Avenida do Museu do Amanhã, 1000'
+    fill_in 'Cidade', with: 'Rio de Janeiro'
+    fill_in 'Estado', with: 'RJ'
+    fill_in 'CEP', with: '20100000'
+    fill_in 'Área', with: '32000'
+    click_on 'Enviar'
+
+    # Assert
+    expect(page).to have_content("CEP deve ser no formato xxxxx-xxx")
+  end
+
+  it 'com nome e código duplicado' do
+
+    # Arrange
+    Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
+      address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
+      description: 'Galpão destinado para cargas internacionais')
+    # Act
+    visit root_path
+    click_on 'Cadastrar Galpão'
+    fill_in 'Nome', with: 'Aeroporto SP'
+    fill_in 'Descrição', with: 'Galpão destinado para cargas internacionais'
+    fill_in 'Código', with: 'GRU'
+    fill_in 'Endereço', with: 'Avenida do Aeroporto, 1000'
+    fill_in 'Cidade', with: 'Guarulhos'
+    fill_in 'Estado', with: 'SP'
+    fill_in 'CEP', with: '15000-000'
+    fill_in 'Área', with: '100000'
+    click_on 'Enviar'
+
+    # Assert
+    expect(page).to have_content("Nome já está em uso")
+    expect(page).to have_content("Código já está em uso")
+  end
+
 end

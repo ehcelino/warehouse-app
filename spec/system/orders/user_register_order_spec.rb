@@ -20,11 +20,12 @@ describe 'Usuário cadastra um pedido' do
     Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
                   address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                   description: 'Galpão destinado para cargas internacionais')
-    supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123', 
+    supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
-    Supplier.create!(corporate_name: 'Panasonic do Brasil LTDA', brand_name: 'Panasonic', registration_number: '1234567890123', 
+    Supplier.create!(corporate_name: 'Panasonic do Brasil LTDA', brand_name: 'Panasonic', registration_number: '1234567890123',
                      full_address: 'Av da Saudade, 200', city: 'Guarulhos', state: 'SP', email: 'sac@panasonic.com')
 
+    allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('ABC12345')
     # Act
     login_as(user)
     visit root_path
@@ -35,6 +36,7 @@ describe 'Usuário cadastra um pedido' do
     click_on 'Gravar'
     # Assert
     expect(page).to have_content 'Pedido registrado com sucesso.'
+    expect(page).to have_content 'Pedido ABC12345'
     expect(page).to have_content 'Galpão Destino: SDU | Rio'
     expect(page).to have_content 'Fornecedor: Amazonas LTDA'
     expect(page).to have_content 'Usuário Responsável: Sergio - sergio@email.com'

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário edita um galpão' do
   it 'a partir da página de detalhes' do
     # Arrange
-    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
                     address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
     # Act
     visit root_path
@@ -16,13 +16,14 @@ describe 'Usuário edita um galpão' do
     expect(page).to have_field('Código', with: 'SDU')
     expect(page).to have_field('Endereço')
     expect(page).to have_field('Cidade', with: 'Rio de Janeiro')
+    expect(page).to have_field('Estado', with: 'RJ')
     expect(page).to have_field('CEP')
     expect(page).to have_field('Área')
   end
 
   it 'com sucesso' do
     # Arrange
-    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
                     address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
     # Act
     visit root_path
@@ -42,7 +43,7 @@ describe 'Usuário edita um galpão' do
 
   it 'e mantém os campos obrigatórios' do
     # Arrange
-    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
                     address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
     # Act
     visit root_path

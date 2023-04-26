@@ -15,9 +15,9 @@ describe 'Usuário cadastra um pedido' do
   it 'com sucesso' do
     # Arrange
     user = User.create!(name:'Sergio', email: 'sergio@email.com', password: '12345678')
-    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
                                   address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
-    Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+    Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
                   address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                   description: 'Galpão destinado para cargas internacionais')
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',

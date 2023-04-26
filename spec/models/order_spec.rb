@@ -6,7 +6,7 @@ RSpec.describe Order, type: :model do
     it 'deve ter um código' do
 
       # Arrange
-      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
                                     address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                                     description: 'Galpão destinado para cargas internacionais')
       user = User.create!(name:'Sergio', email: 'sergio@email.com', password: '12345678')
@@ -27,7 +27,7 @@ RSpec.describe Order, type: :model do
     it 'ao criar um novo pedido' do
 
       # Arrange
-      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
                                     address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                                     description: 'Galpão destinado para cargas internacionais')
       user = User.create!(name:'Sergio', email: 'sergio@email.com', password: '12345678')
@@ -48,7 +48,7 @@ RSpec.describe Order, type: :model do
     it 'e o código é único' do
 
       # Arrange
-      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
                                     address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
                                     description: 'Galpão destinado para cargas internacionais')
       user = User.create!(name:'Sergio', email: 'sergio@email.com', password: '12345678')

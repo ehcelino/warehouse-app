@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário remove um galpão' do
   it 'com sucesso' do
     # Arrange
-    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
       address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
     # Act
     visit root_path
@@ -19,9 +19,9 @@ describe 'Usuário remove um galpão' do
 
   it 'e não apaga outros galpões' do
     # Arrange
-    first_warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+    first_warehouse = Warehouse.create!(name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', state: 'RJ', area: 60_000,
       address: 'Av do Porto, 1000', cep: '20000-000', description: 'Galpão do Rio')
-    second_warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CUI', city: 'Cuiabá', area: 80_000,
+    second_warehouse = Warehouse.create!(name: 'Cuiabá', code: 'CUI', city: 'Cuiabá', state: 'MT', area: 80_000,
       address: 'Av central, 1000', cep: '43000-000', description: 'Galpão centro da cidade')
     # Act
     visit root_path

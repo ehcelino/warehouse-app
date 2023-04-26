@@ -4,7 +4,7 @@ describe 'Usuário vê detalhes de um galpão' do
   it 'e vê informações adicionais' do
     # Arrange
     w = Warehouse.new(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
-                      address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
+                      address: 'Avenida do Aeroporto, 1000', cep: '15000-000', state: 'SP',
                       description: 'Galpão destinado para cargas internacionais')
     w.save()
     # Act
@@ -15,6 +15,7 @@ describe 'Usuário vê detalhes de um galpão' do
     expect(page).to have_content('Galpão GRU')
     expect(page).to have_content('Nome: Aeroporto SP')
     expect(page).to have_content('Cidade: Guarulhos')
+    expect(page).to have_content('Estado: SP')
     expect(page).to have_content('Área: 100000 m2')
     expect(page).to have_content('Endereço: Avenida do Aeroporto, 1000 CEP: 15000-000')
     expect(page).to have_content('Galpão destinado para cargas internacionais')
@@ -24,7 +25,7 @@ describe 'Usuário vê detalhes de um galpão' do
 
   it 'e volta para a tela inicial' do
     # Arrange
-    w = Warehouse.create(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+    w = Warehouse.create(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
       address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
       description: 'Galpão destinado para cargas internacionais')
     # Act

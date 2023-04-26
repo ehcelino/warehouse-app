@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_25_190218) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_26_014244) do
   create_table "orders", force: :cascade do |t|
     t.integer "warehouse_id", null: false
     t.integer "supplier_id", null: false
@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_190218) do
     t.string "address"
     t.string "cep"
     t.string "description"
+    t.string "state"
   end
 
   add_foreign_key "orders", "suppliers"

@@ -23,9 +23,9 @@ describe 'Usuário vê seus próprios pedidos' do
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
 
-    first_order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now)
-    second_order = Order.create!(user: sergio, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now)
-    third_order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now)
+    first_order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now, status: 'pending')
+    second_order = Order.create!(user: sergio, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now, status: 'delivered')
+    third_order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now, status: 'canceled')
 
     # Act
     login_as(joao)
@@ -34,8 +34,11 @@ describe 'Usuário vê seus próprios pedidos' do
 
     # Assert
     expect(page).to have_content first_order.code
+    expect(page).to have_content 'Pendente'
     expect(page).not_to have_content second_order.code
+    expect(page).not_to have_content 'Entregue'
     expect(page).to have_content third_order.code
+    expect(page).to have_content 'Cancelado'
 
   end
 

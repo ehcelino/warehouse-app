@@ -3,10 +3,9 @@ require 'rails_helper'
 describe 'Usuário vê detalhes de um galpão' do
   it 'e vê informações adicionais' do
     # Arrange
-    w = Warehouse.new(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
-                      address: 'Avenida do Aeroporto, 1000', cep: '15000-000', state: 'SP',
-                      description: 'Galpão destinado para cargas internacionais')
-    w.save()
+    w = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', area: 100_000,
+                          address: 'Avenida do Aeroporto, 1000', cep: '15000-000', state: 'SP',
+                          description: 'Galpão destinado para cargas internacionais')
     # Act
     visit(root_path)
     click_on 'Aeroporto SP'

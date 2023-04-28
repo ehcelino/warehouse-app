@@ -11,6 +11,27 @@
 </dl>
 
 <%= link_to 'Editar', edit_supplier_path(@supplier) %>
+
+<% if @product_models.any? %>
+  <h3>Produtos Cadastrados</h3>
+  <table>
+    <tr>
+      <th>Nome</th>
+      <th>Dimensões</th>
+      <th>Peso</th>
+      <th>SKU</th>
+    </tr>
+    <% @product_models.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.width %> x <%= product.height %> x <%= product.depth %> cm </td>
+      <td><%= product.weight %>g</td>
+      <td><%= product.sku %></td>
+    </tr>
+    <% end %>
+  </table>
+<% end %>
+
 <div>
   <%= link_to 'Voltar', root_path %>
 </div>

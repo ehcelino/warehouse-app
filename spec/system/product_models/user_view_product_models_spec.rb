@@ -69,4 +69,32 @@ describe 'Usuário vê modelos de produtos' do
     expect(page).to have_content('Nenhum modelo de produto cadastrado.')
   end
 
+  it 'na página do fornecedor' do
+    # Arrange
+    user = User.create!(name:'João', email: 'joao@email.com', password: 'password')
+    supplier = Supplier.create!(corporate_name: 'Samsung Eletrônicos LTDA', brand_name: 'Samsung', registration_number: '1234567890123',
+                                 full_address: 'Av Nações Unidas, 1000', city: 'São Paulo', state: 'SP', email: 'sac@samsung.com.br')
+    ProductModel.create!(name: 'TV 32', weight: 8000, width: 70, height: 45, depth: 10,
+                        sku: 'TV32-SAMSUNG-XPT3009', supplier: supplier)
+    ProductModel.create!(name: 'SoundBar 7.1 Surround', weight: 3000, width: 80, height: 15, depth: 20,
+                        sku: 'SOUND71-SAMSUNG-NOI2', supplier: supplier)
+
+    # Act
+    login_as(user)
+    visit root_path
+    within('nav') do
+      click_on 'Fornecedores'
+    end
+    click_on 'Samsung'
+
+    # Assert
+    expect(page).to have_content('Fornecedor Samsung')
+    expect(page).to have_content('Samsung Eletrônicos LTDA')
+    expect(page).to have_content('Produtos Cadastrados')
+    expect(page).to have_content('TV 32')
+    expect(page).to have_content('TV32-SAMSUNG-XPT3009')
+    expect(page).to have_content('SoundBar 7.1 Surround')
+    expect(page).to have_content('SOUND71-SAMSUNG-NOI2')
+  end
+
 end

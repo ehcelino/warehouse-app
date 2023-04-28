@@ -9,12 +9,23 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.user = current_user
-    @order.save!
-    redirect_to @order, notice: "Pedido registrado com sucesso."
+    if @order.save
+      redirect_to @order, notice: "Pedido registrado com sucesso."
+    else
+      @warehouses = Warehouse.all
+      @suppliers = Supplier.all
+      flash.now[:notice] = 'Não foi possível registrar o pedido.'
+      render :new
+    end
   end
 
   def show
     @order = Order.find(params[:id])
+  end
+
+  def search
+    @code = params["query"]
+    @orders = Order.where("code LIKE ?", "%#{@code}%")
   end
 
   private

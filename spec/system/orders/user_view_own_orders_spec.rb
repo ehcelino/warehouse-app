@@ -90,4 +90,35 @@ describe 'Usuário vê seus próprios pedidos' do
     expect(current_path).to eq root_path
     expect(page).to have_content "Você não possui acesso a este pedido."
   end
+
+  it 'e vê itens do pedido' do
+    # Arrange
+    supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
+      full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
+    product_a = ProductModel.create!(name: 'Produto A', weight: 15, width: 10, height: 20, depth: 30, supplier: supplier, sku: 12345678912345678900)
+    product_b = ProductModel.create!(name: 'Produto B', weight: 15, width: 10, height: 20, depth: 30, supplier: supplier, sku: 32145678912345678900)
+    product_c = ProductModel.create!(name: 'Produto C', weight: 15, width: 10, height: 20, depth: 30, supplier: supplier, sku: 12345678912345678912)
+    joao = User.create!(name:'João', email: 'joao@email.com', password: 'password')
+    warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
+      address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
+      description: 'Galpão destinado para cargas internacionais')
+
+    formatted_date = I18n.localize(1.day.from_now.to_date)
+    order = Order.create!(user: joao, warehouse: warehouse, supplier: supplier, estimated_delivery_date: formatted_date)
+    OrderItem.create!(product_model: product_a, order: order, quantity: 19)
+    OrderItem.create!(product_model: product_b, order: order, quantity: 12)
+
+
+    # Act
+    login_as joao
+    visit root_path
+    click_on 'Meus Pedidos'
+    click_on order.code
+
+    # Assert
+    expect(page).to have_content 'Itens do Pedido'
+    expect(page).to have_content '19 x Produto A'
+    expect(page).to have_content '12 x Produto B'
+
+  end
 end

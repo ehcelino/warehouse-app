@@ -14,7 +14,17 @@ warehouse = Warehouse.create!(name: 'Pouso Alegre Central', code: 'PSA', city: '
                               description: 'Galpão sul de minas')
 supplier = Supplier.create!(corporate_name: 'Geonav LTDA', brand_name: 'Geonav', registration_number: '1244563874125',
                            full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@geonav.com.br')
-ProductModel.create!(name: 'TV 50 polegadas', weight: 8000, width: 150, height: 80, depth: 10,
-                            sku: 'TV50-GEONAV-XPT15000', supplier: supplier)
 formatted_date = I18n.localize(1.year.from_now.to_date)
 order = Order.create!(user: vincent, warehouse: warehouse, supplier: supplier, estimated_delivery_date: formatted_date)
+order_two = Order.create!(user: vincent, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now, status: :delivered)
+product_tv = ProductModel.create!(name: 'TV 50 polegadas', weight: 8000, width: 150, height: 80, depth: 10,
+                                  sku: 'TV50-GEONAV-XPT15000', supplier: supplier)
+product_soundbar = ProductModel.create!(name: 'SoundBar 7.1 Surround', weight: 3000, width: 80, height: 15, depth: 20,
+                                            sku: 'SOUND71-SAMSUNG-NOI2', supplier: supplier)
+product_notebook = ProductModel.create!(name: 'Notebook i5 16GB RAM', weight: 2000, width: 40, height: 9, depth: 20,
+                                        sku: 'NOTE-SAMSUNG-XPTO201', supplier: supplier)
+6.times { StockProduct.create!(order: order_two, warehouse: warehouse, product_model: product_tv) }
+# 2.times { StockProduct.create!(order: order, warehouse: warehouse, product_model: product_notebook) }
+# 5.times { StockProduct.create!(order: order, warehouse: warehouse, product_model: product_soundbar) }
+OrderItem.create!(product_model: product_soundbar, order: order, quantity: 50)
+OrderItem.create!(product_model: product_notebook, order: order, quantity: 30)

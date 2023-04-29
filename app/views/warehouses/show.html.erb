@@ -10,8 +10,10 @@
 
 <div>
   <h2>Itens em Estoque</h2>
-  <%= @stocks.each_pair do |pm, qty| %>
-    <%= qty %> x <%= pm.sku %>
+  <% @stocks.each_pair do |pm, qty| %>
+    <div>
+      <%= qty %> x <%= pm.sku %> - <%= pm.name %>
+    </div>
   <% end %>
 </div>
 

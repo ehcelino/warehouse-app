@@ -111,5 +111,23 @@ RSpec.describe Order, type: :model do
 
     end
 
+    it 'E não deve ser modificado' do
+      # Arrange
+      warehouse = Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
+        address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
+        description: 'Galpão destinado para cargas internacionais')
+      user = User.create!(name:'Sergio', email: 'sergio@email.com', password: '12345678')
+      supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
+            full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
+      order = Order.create!(user: user, warehouse: warehouse, supplier: supplier, estimated_delivery_date: 1.week.from_now)
+      original_code = order.code
+
+      # Act
+      order.update!(estimated_delivery_date: 1.month.from_now)
+
+      #Assert
+      expect(order.code).to eq(original_code)
+    end
+
   end
 end

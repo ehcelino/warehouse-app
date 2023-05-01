@@ -47,12 +47,10 @@ describe 'Usuário busca por um pedido' do
     click_on 'Buscar'
 
     # Assert
-    expect(page).to have_content "Resultados da Busca por: #{order.code}"
-    expect(page).to have_content '1 pedido encontrado'
-    expect(page).to have_content "Código: #{order.code}"
+    expect(page).to have_content 'Detalhes do Pedido'
+    expect(page).to have_content "Pedido #{order.code}"
     expect(page).to have_content 'Galpão Destino: SDU | Rio'
     expect(page).to have_content 'Fornecedor: Amazonas LTDA'
-
   end
 
   it 'e encontra múltiplos pedidos' do

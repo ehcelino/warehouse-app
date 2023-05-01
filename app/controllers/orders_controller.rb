@@ -41,6 +41,9 @@ class OrdersController < ApplicationController
   def search
     @code = params["query"]
     @orders = Order.where("code LIKE ?", "%#{@code}%")
+    if @orders.length == 1 && params["query"] == @orders.first.code
+      redirect_to order_path(@orders.first.id)
+    end
   end
 
   def delivered

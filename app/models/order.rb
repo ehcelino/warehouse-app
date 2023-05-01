@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   private
 
   def generate_code
-    self.code = SecureRandom.alphanumeric(8).upcase
+    self.code = SecureRandom.alphanumeric(10).upcase
   end
 
   def estimated_delivery_date_is_future

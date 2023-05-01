@@ -65,11 +65,11 @@ describe 'Usuário busca por um pedido' do
                                     description: 'Galpão destinado para cargas internacionais')
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
       full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
-    allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('SDU12345')
+    allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('SDU12345')
     order = Order.create!(user: user, warehouse: first_warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now)
-    allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('SDU95815')
+    allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('SDU95815')
     order = Order.create!(user: user, warehouse: first_warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now)
-    allow(SecureRandom).to receive(:alphanumeric).with(8).and_return('GRU12345')
+    allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('GRU12345')
     order = Order.create!(user: user, warehouse: second_warehouse, supplier: supplier, estimated_delivery_date: 1.day.from_now)
 
     # Act

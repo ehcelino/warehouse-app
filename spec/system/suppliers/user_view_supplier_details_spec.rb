@@ -3,10 +3,12 @@ require 'rails_helper'
 describe 'Usuário vê detalhes de um fornecedor' do
   it 'e vê informações adicionais' do
     # Arrange
-    supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123', 
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
+    supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Amazonas'
@@ -21,9 +23,11 @@ describe 'Usuário vê detalhes de um fornecedor' do
 
   it 'e volta para a tela inicial' do
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
-                                full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com') 
+                                full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Amazonas'

@@ -3,11 +3,17 @@ require 'rails_helper'
 describe 'Usuário edita um fornecedor' do
   it 'e vê os dados previamente cadastrados' do
     # Arrange
+    User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
 
     # Act
     visit root_path
+    within('form') do
+      fill_in 'E-mail', with: 'joao@email.com'
+      fill_in 'Senha', with:'password'
+      click_on 'Entrar'
+    end
     click_on 'Fornecedores'
     click_on 'Amazonas'
     click_on 'Editar'
@@ -25,10 +31,12 @@ describe 'Usuário edita um fornecedor' do
 
   it 'com sucesso' do
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     supplier = Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Amazonas'
@@ -47,12 +55,14 @@ describe 'Usuário edita um fornecedor' do
 
   it 'com falha devido à duplicação do CNPJ' do
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
     Supplier.create!(corporate_name: 'Panasonic do Brasil LTDA', brand_name: 'Panasonic', registration_number: '1234567890321',
       full_address: 'Av da Saudade, 200', city: 'Guarulhos', state: 'SP', email: 'sac@panasonic.com')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Amazonas'
@@ -70,10 +80,12 @@ describe 'Usuário edita um fornecedor' do
 
   it 'com falha devido ao tamanho do CNPJ' do
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                                 full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
 
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Amazonas'

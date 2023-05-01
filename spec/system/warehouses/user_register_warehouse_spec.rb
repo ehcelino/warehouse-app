@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'Usuário cadastra um galpão' do
   it 'a partir da tela inicial' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar Galpão'
 
@@ -21,8 +22,9 @@ describe 'Usuário cadastra um galpão' do
 
   it 'Com sucesso' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar Galpão'
     fill_in 'Nome', with: 'Rio de Janeiro'
@@ -46,8 +48,9 @@ describe 'Usuário cadastra um galpão' do
 
   it 'com dados incompletos' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar Galpão'
     fill_in 'Nome', with: ''
@@ -76,8 +79,9 @@ describe 'Usuário cadastra um galpão' do
   it 'com CEP errado' do
 
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar Galpão'
     fill_in 'Nome', with: 'Rio de Janeiro'
@@ -97,10 +101,12 @@ describe 'Usuário cadastra um galpão' do
   it 'com nome e código duplicado' do
 
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     Warehouse.create!(name: 'Aeroporto SP', code: 'GRU', city: 'Guarulhos', state: 'SP', area: 100_000,
       address: 'Avenida do Aeroporto, 1000', cep: '15000-000',
       description: 'Galpão destinado para cargas internacionais')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Cadastrar Galpão'
     fill_in 'Nome', with: 'Aeroporto SP'

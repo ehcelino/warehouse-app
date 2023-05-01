@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'Usuário cadastra um fornecedor' do
   it 'a partir do menu' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Cadastrar novo fornecedor'
@@ -22,8 +23,9 @@ describe 'Usuário cadastra um fornecedor' do
 
   it 'com sucesso' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Cadastrar novo fornecedor'
@@ -48,8 +50,9 @@ describe 'Usuário cadastra um fornecedor' do
 
   it 'com CNPJ inválido' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Cadastrar novo fornecedor'
@@ -70,9 +73,11 @@ describe 'Usuário cadastra um fornecedor' do
 
   it 'com duplicação do CNPJ' do
     # Arrange
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     Supplier.create!(corporate_name: 'Amazonas LTDA', brand_name: 'Amazonas', registration_number: '1234567890123',
                     full_address: 'Av Central, 1000', city: 'Manaus', state: 'AM', email: 'comercial@amazonas.com')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Cadastrar novo fornecedor'
@@ -93,8 +98,9 @@ describe 'Usuário cadastra um fornecedor' do
 
   it 'e esquece alguns campos' do
     # Arrange
-
+    user = User.create!(name: 'João', email: 'joao@email.com', password: 'password')
     # Act
+    login_as(user)
     visit root_path
     click_on 'Fornecedores'
     click_on 'Cadastrar novo fornecedor'

@@ -26,12 +26,14 @@ class ProductModelsController < ApplicationController
   end
 
   def edit
+    @suppliers = Supplier.all
   end
 
   def update
     if @product_model.update(product_model_params)
       redirect_to product_models_path
     else
+      @suppliers = Supplier.all
       render :edit
     end
   end

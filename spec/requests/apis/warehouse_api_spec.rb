@@ -161,5 +161,21 @@ describe 'Warehouse API' do
       expect(response.status).to eq 500
 
     end
+
+    it 'blank fields' do
+      # Arrange
+      warehouse_original = { warehouse: {name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+                            address: 'Av. do Porto, 1000', state: 'RJ', cep: '20000-000',
+                            description: 'Galpão do Rio'}
+      }
+      post '/api/v1/warehouses', params: warehouse_original
+      original_warehouse_id = JSON.parse(response.body)["id"]
+
+      # Act
+      patch "/api/v1/warehouses/#{original_warehouse_id}", params: { warehouse: { name: ''} }
+
+      # Assert
+      expect(response).to have_http_status(412)
+    end
   end
 end

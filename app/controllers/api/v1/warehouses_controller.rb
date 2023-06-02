@@ -22,7 +22,7 @@ class Api::V1::WarehousesController < Api::V1::ApiController
   end
 
   def edit
-    warehouse = Warehouse.find(params[:id])
+    # warehouse = Warehouse.find(params[:id])
   end
 
   def update

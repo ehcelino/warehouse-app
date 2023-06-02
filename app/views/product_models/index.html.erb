@@ -16,6 +16,7 @@
           <td><%= product_model.name %></td>
           <td><%= product_model.sku %></td>
           <td><%= product_model.supplier.brand_name %></td>
+          <td><%= button_to "Editar", edit_product_model_path(product_model), method: :get, id:"#{dom_id(product_model)}" %></td>
         </tr>
       <% end %>
     </tbody>

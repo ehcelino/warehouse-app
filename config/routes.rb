@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
   namespace :api do
     namespace :v1 do
-      resources :warehouses, only: [:show, :index, :create]
+      resources :warehouses, only: [:show, :index, :create, :edit, :update]
     end
   end
 end

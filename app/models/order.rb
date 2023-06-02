@@ -18,10 +18,10 @@ class Order < ApplicationRecord
     self.code = SecureRandom.alphanumeric(10).upcase
   end
 
-  def estimated_delivery_date_is_future
-    if self.estimated_delivery_date.present? && self.estimated_delivery_date <= Date.today
-      self.errors.add(:estimated_delivery_date, " deve ser futura.")
-    end
-  end
+  # def estimated_delivery_date_is_future
+  #   if self.estimated_delivery_date.present? && self.estimated_delivery_date <= Date.today
+  #     self.errors.add(:estimated_delivery_date, " deve ser futura.")
+  #   end
+  # end
 
 end

@@ -121,4 +121,45 @@ describe 'Warehouse API' do
       expect(response).to have_http_status(500)
     end
   end
+
+  context 'patch /api/v1/warehouses' do
+    it 'works' do
+      # Arrange
+      warehouse_original = { warehouse: {name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+                            address: 'Av. do Porto, 1000', state: 'RJ', cep: '20000-000',
+                            description: 'Galpão do Rio'}
+      }
+      post '/api/v1/warehouses', params: warehouse_original
+      original_warehouse_id = JSON.parse(response.body)["id"]
+
+      # Act
+      patch "/api/v1/warehouses/#{original_warehouse_id}", params: { warehouse: { name: 'Galpão Rio'} }
+
+      # Assert
+      expect(response).to have_http_status(201)
+      json_response = JSON.parse(response.body)
+      expect(json_response["name"]).to eq 'Galpão Rio'
+    end
+
+    it 'fails to patch' do
+      # Arrange
+      warehouse_original = { warehouse: {name: 'Rio', code: 'SDU', city: 'Rio de Janeiro', area: 60_000,
+                            address: 'Av. do Porto, 1000', state: 'RJ', cep: '20000-000',
+                            description: 'Galpão do Rio'}
+      }
+      post '/api/v1/warehouses', params: warehouse_original
+      original_warehouse_id = JSON.parse(response.body)["id"]
+      warehouse = instance_double(Warehouse)
+      allow(Warehouse).to receive(:find).and_return(warehouse)
+      allow(warehouse).to receive(:update).and_raise(ActiveRecord::ActiveRecordError)
+      # allow_any_instance_of(Warehouse).to receive(:update).and_raise(ActiveRecord::ActiveRecordError)
+
+      # Act
+      patch "/api/v1/warehouses/#{original_warehouse_id}", params: { warehouse: { name: 'Galpão Rio'} }
+
+      # Assert
+      expect(response.status).to eq 500
+
+    end
+  end
 end
